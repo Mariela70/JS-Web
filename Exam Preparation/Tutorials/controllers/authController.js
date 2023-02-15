@@ -4,15 +4,19 @@ const {register, login} = require('../services/userService');
 const { parseError } = require('../util/parser');
 const authController = require('express').Router();
 
-authController.get('/register',isGuest(), (req, res) =>{
+authController.get('/register', isGuest(), (req, res) =>{
     res.render('register', {
         title: 'Register Page'
     });
 });
 
 authController.post('/register', isGuest(),
-body('username').isLength({min: 5}).withMessage('Username must be at least 5 characters long').isAlphanumeric().withMessage('Username may contain only letters and numbers'),
-body('password').isLength({min: 5}).withMessage('Password must be at least 5 characters long').isAlphanumeric().withMessage('Pasword may contain only letters and numbers'),
+body('username')
+.isLength({min: 5}).withMessage('Username mustt be at least 5 characters long')
+.isAlphanumeric().withMessage('Username may contain only letters and numbers'),
+body('password')
+.isLength({min: 5}).withMessage('Password mustt be at least 5 characters long')
+.isAlphanumeric().withMessage('Password may contain only letters and numbers'),
 async (req, res) =>{
     try{
         const {errors} = validationResult(req);
