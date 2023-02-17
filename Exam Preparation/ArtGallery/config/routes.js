@@ -9,5 +9,9 @@ app.use('/', homeController);
 app.use('/auth', authController);
 app.use('/publication', publicationController);
 app.use('/profile', profileController);
-
+app.get('*', (req, res) => {
+    res.render('404', {
+        title: 'Page Not Found'
+    });
+})
 };
